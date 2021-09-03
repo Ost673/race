@@ -124,5 +124,7 @@ Bil = sprites.create(img`
     . . . f f f . . . . f f f f . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
+let Startstrek = sprites.create(assets.image`Startstrek`, SpriteKind.Player)
+Startstrek.setPosition(124, 72)
 controller.moveSprite(Bil, 200, 200)
 scene.cameraFollowSprite(Bil)
