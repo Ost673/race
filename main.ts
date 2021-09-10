@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const Startstrek = SpriteKind.create()
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Bil,
@@ -22,6 +25,14 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     500,
     false
     )
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Startstrek, function (sprite, otherSprite) {
+    if (Start == 0) {
+        Start = 1
+        pause(2000)
+    } else if (Start == 1) {
+        game.over(true)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileDarkGrass1, function (sprite, location) {
     controller.moveSprite(Bil, 50, 50)
@@ -104,6 +115,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     false
     )
 })
+let Start = 0
 let Bil: Sprite = null
 tiles.setTilemap(tilemap`level1`)
 Bil = sprites.create(img`
@@ -124,7 +136,15 @@ Bil = sprites.create(img`
     . . . f f f . . . . f f f f . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-let Startstrek = sprites.create(assets.image`Startstrek`, SpriteKind.Player)
-Startstrek.setPosition(124, 72)
+Bil.setPosition(115, 68)
+let Startstrek = sprites.create(assets.image`Startstrek`, SpriteKind.Startstrek)
+Startstrek.setPosition(132, 82)
 controller.moveSprite(Bil, 200, 200)
 scene.cameraFollowSprite(Bil)
+Start = 0
+forever(function () {
+    if (Start == 1) {
+        info.changeScoreBy(1)
+        pause(1000)
+    }
+})
